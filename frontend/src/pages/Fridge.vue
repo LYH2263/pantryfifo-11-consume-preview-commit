@@ -12,13 +12,17 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { api } from '../api'
+import { bus } from '../bus'
 const rows = ref([])
 const layers = ['upper','mid','lower']
 const label = { upper: '上层', mid: '中层', lower: '下层' }
 function by(L) { return rows.value.filter(r => r.layer === L) }
 async function load() { rows.value = await api('/fridge') }
-async function sweep() { await api('/expire-sweep', { method: 'POST', body: '{}' }); await load() }
+async function sweep() { await api('/expire-sweep', { method: 'POST', body: '{}' }); await load(); bus.emit({ type: 'shelf-changed' }) }
 onMounted(load)
+// A preview leaves these columns untouched; only a confirmed ticket refreshes them.
+const off = bus.on((e) => { if (e.type === 'shelf-changed') load() })
+onUnmounted(off)
 </script>

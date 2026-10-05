@@ -17,8 +17,13 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { api } from './api'
+import { bus } from './bus'
 const alerts = ref([])
-onMounted(async () => { try { alerts.value = await api('/alerts') } catch { alerts.value = [] } })
+async function load() { try { alerts.value = await api('/alerts') } catch { alerts.value = [] } }
+onMounted(load)
+// Preview never moves the bar; a landed confirm or sweep may clear alerts.
+const off = bus.on((e) => { if (e.type === 'shelf-changed') load() })
+onUnmounted(off)
 </script>

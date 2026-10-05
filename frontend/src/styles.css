@@ -29,3 +29,10 @@ h1,h2 { font-family: "Space Grotesk", sans-serif; }
 button { background: var(--teal); color: #fff; border: 0; border-radius: 10px; padding: 8px 12px; font: inherit; cursor: pointer; }
 input, select { padding: 8px; border-radius: 8px; border: 1px solid var(--line); font: inherit; margin: 4px 0 10px; width: 100%; max-width: 320px; }
 .muted { color: #5a7a7e; font-size: 13px; }
+.msg { margin: 10px 0; padding: 8px 12px; border-radius: 10px; font-size: 14px; max-width: 560px; }
+.msg.info { background: #e7f2fb; color: #2b5a78; border: 1px solid #b9d6ea; }
+.msg.ok { background: #e5f4ea; color: #21603a; border: 1px solid #b3dcc2; }
+.msg.err { background: #ffe8d8; color: var(--alert); border: 1px solid #f0c9a8; }
+.ticket { margin-top: 12px; padding: 12px; background: #fff; border: 1px dashed var(--line); border-radius: 14px; max-width: 560px; }
+.ticket h3 { margin: 0 0 8px; font-size: 14px; color: var(--teal); }
+.ticket button + button { margin-left: 8px; }
